@@ -17,14 +17,16 @@ map('n', '<C-s>', ':w<cr>', options)
 map('n', '<C-q>', ':q<cr>', options)
 
 -- Navigation
-map('n', 'H', '<C-w><C-w>', options)
-map('n', 'L', '<C-w>W', options)
+map('n', 'L', '<C-w><C-w>', options)
+map('n', 'H', '<C-w>W', options)
 map('n', 'J', 'gT', options)
 map('n', 'K', 'gt', options)
 map('n', '<C-j>', '<C-o>', options)
 map('n', '<C-k>', '<C-i>', options)
 map('n', 'K', 'gt', options)
 map('n', '<leader><leader>t', ':tabnew<cr>', options)
+map('n', '<leader><leader>v', ':vsp<cr>', options)
+map('n', '<leader><leader>c', ':sp<cr>', options)
 map('n', '<C-n>', ':NvimTreeFindFile<cr>', options)
 map('n', '<leader><C-n>', ':NvimTreeOpen<cr>', options)
 
@@ -44,6 +46,7 @@ vim.keymap.set('n', '<leader>ln', ':NullLsInfo<CR>')
 vim.keymap.set('n', '<leader><leader>r', ':lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>R', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
 vim.cmd('command Err lua vim.diagnostic.setloclist()<CR>')
  -- good info on commands: https://rishabhrd.github.io/jekyll/update/2020/09/19/nvim_lsp_config.html
 vim.keymap.set('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -57,3 +60,5 @@ vim.keymap.set('', 'F', '<Plug>Sneak_F', {remap=true})
 vim.keymap.set('', 's', '<Plug>Sneak_s', {remap=true})
 vim.keymap.set('', 'S', '<Plug>Sneak_S', {remap=true})
 
+-- Terminal
+vim.cmd("tnoremap <Leader><Esc> <C-\\><C-n>")

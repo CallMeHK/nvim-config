@@ -1,1 +1,1 @@
-vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.tsx'
+require('nvim-ts-autotag').setup()

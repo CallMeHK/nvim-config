@@ -8,7 +8,7 @@ return require("packer").startup(function(use)
 
 	-- Pairs
 	use("jiangmiao/auto-pairs")
-	use("alvan/vim-closetag")
+	use("windwp/nvim-ts-autotag")
 
 	-- Navigation
 	use({
