@@ -2,8 +2,9 @@ return require("packer").startup(function(use)
 	-- Let Packer manage self
 	use("wbthomason/packer.nvim")
 
-	-- Simple plugins can be specified as strings
+	-- Misc plugins
 	use("junegunn/goyo.vim")
+	use("psliwka/vim-smoothie")
 
 	-- Pairs
 	use("jiangmiao/auto-pairs")
@@ -22,6 +23,15 @@ return require("packer").startup(function(use)
 		},
 		tag = "nightly", -- optional, updated every week. (see issue #1193)
 	})
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup()
+		end,
+	})
+  use("justinmk/vim-sneak")
 
 	-- Theme
 	use("EdenEast/nightfox.nvim")

@@ -1,11 +1,20 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
+		"bash",
+		"dockerfile",
 		"eex",
 		"elixir",
 		"erlang",
+		"fish",
+		"graphql",
 		"heex",
 		"html",
+		"lua",
+		"javascript",
+		"json",
 		"surface",
+		"typescript",
+		"tsx",
 	},
 	highlight = { enable = true },
 })

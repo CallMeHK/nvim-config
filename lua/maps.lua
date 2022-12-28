@@ -1,5 +1,7 @@
 local map = vim.api.nvim_set_keymap
 local builtin = require('telescope.builtin')
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
 
 vim.keymap.set('n', 'e', '<Nop>', { silent = true, remap = false })
 vim.g.mapleader = 'e'
@@ -46,13 +48,12 @@ vim.cmd('command Err lua vim.diagnostic.setloclist()<CR>')
  -- good info on commands: https://rishabhrd.github.io/jekyll/update/2020/09/19/nvim_lsp_config.html
 vim.keymap.set('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
 
--- Completion
--- vim.cmd[[
--- " Use Tab to expand and jump through snippets
--- imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
--- smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>'
--- 
--- " Use Shift-Tab to jump backwards through snippets
--- imap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
--- smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
--- ]]
+-- Hop.nvim and sneak
+vim.keymap.set('n', '<leader><leader>w', '<cmd>HopWord<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><leader>j', '<cmd>HopLine<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><leader>s', '<cmd>HopPattern<CR>', { noremap = true, silent = true })
+vim.keymap.set('', 'f', '<Plug>Sneak_f', {remap=true})
+vim.keymap.set('', 'F', '<Plug>Sneak_F', {remap=true})
+vim.keymap.set('', 's', '<Plug>Sneak_s', {remap=true})
+vim.keymap.set('', 'S', '<Plug>Sneak_S', {remap=true})
+
