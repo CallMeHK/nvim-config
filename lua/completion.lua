@@ -1,5 +1,6 @@
 local o = vim.o
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.setup({
 	snippet = {
@@ -12,6 +13,16 @@ cmp.setup({
 		end,
 	},
 	mapping = {
+		["<CR>"] = cmp.mapping(function(fallback)
+			if luasnip.expandable() then
+				luasnip.expand()
+      else
+        fallback()
+      end
+		end, {
+			"i",
+			"s",
+		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -62,3 +73,5 @@ cmp.setup({
 		end,
 	},
 })
+
+require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/lua/snippets/"})

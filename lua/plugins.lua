@@ -5,6 +5,10 @@ return require("packer").startup(function(use)
 	-- Simple plugins can be specified as strings
 	use("junegunn/goyo.vim")
 
+	-- Pairs
+	use("jiangmiao/auto-pairs")
+	use("alvan/vim-closetag")
+
 	-- Navigation
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -50,4 +54,8 @@ return require("packer").startup(function(use)
 	use("williamboman/mason.nvim") -- simple to use language server installer
 	use("williamboman/mason-lspconfig.nvim") -- simple to use language server installer
 	use("jose-elias-alvarez/null-ls.nvim") -- LSP diagnostics and code actions
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
 end)

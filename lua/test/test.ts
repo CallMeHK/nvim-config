@@ -5,7 +5,7 @@ type X = {
 
 const x: X = {
   a: "asdf",
-  b: "efef",
+  b: "asfd",
 };
 
 const z = x.a;

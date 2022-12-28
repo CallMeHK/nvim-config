@@ -1,19 +1,22 @@
-require('plugins')
-require('maps')
-require('theme')
-require('tree')
-require('lsp')
-require('completion')
+require("plugins")
+require("maps")
+require("theme")
+require("tree")
+require("treesitter")
+require("lsp")
+require("completion")
+require("pairs")
 
 local o = vim.o
 
 -- General settings
 o.smartcase = true
 o.mouse = false
-vim.cmd('set number')
-vim.cmd('set signcolumn=number')
+vim.cmd("set number")
+vim.cmd("set signcolumn=number")
+vim.cmd("syntax on")
 -- Set tabs to two spaces
-vim.cmd('set expandtab')
+vim.cmd("set expandtab")
 o.tabstop = 2
 o.softtabstop = 2
 o.shiftwidth = 2

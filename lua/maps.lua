@@ -43,3 +43,16 @@ vim.keymap.set('n', '<leader><leader>r', ':lua vim.lsp.buf.format({ timeout_ms =
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>R', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
 vim.cmd('command Err lua vim.diagnostic.setloclist()<CR>')
+ -- good info on commands: https://rishabhrd.github.io/jekyll/update/2020/09/19/nvim_lsp_config.html
+vim.keymap.set('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+
+-- Completion
+-- vim.cmd[[
+-- " Use Tab to expand and jump through snippets
+-- imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+-- smap <silent><expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>'
+-- 
+-- " Use Shift-Tab to jump backwards through snippets
+-- imap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
+-- smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
+-- ]]
