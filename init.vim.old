@@ -1,0 +1,343 @@
+set nocompatible
+
+let g:yats_host_keyword = 1
+
+" Coc modules installed:
+" coc-eslint
+" coc-tsserver
+
+call plug#begin($vimdir.'~/.vim/plugged')
+	Plug 'junegunn/vim-plug'               " plugin manager should manage itself
+	Plug 'sheerun/vim-polyglot'            " handles language-specific configuration
+	Plug 'nvim-lua/completion-nvim'        " language server completion
+	Plug 'junegunn/fzf'                    " fzf
+	Plug 'junegunn/fzf.vim'                " helpers for using fzf in vim
+	Plug 'tpope/vim-sleuth'                " try and detect indent method
+	Plug 'nathanaelkane/vim-indent-guides' " indentation guides
+	Plug 'tpope/vim-commentary'            " toggle comments in code easily
+	Plug 'tpope/vim-repeat'                " better vim repeating for plugin-provided actions
+	Plug 'machakann/vim-sandwich'          " quickly modify text surrounding objects
+	Plug 'michaeljsmith/vim-indent-object' " adds an indentation level text object
+	Plug 'bkad/CamelCaseMotion'            " camel case and underscore word movements
+	Plug 'wellle/targets.vim'              " adds some more handy text objects
+	Plug 'tpope/vim-obsession'             " even better session handling
+	Plug 'dhruvasagar/vim-prosession'      " even better session handling
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+	Plug 'mileszs/ack.vim'
+	Plug 'itchyny/lightline.vim'
+	Plug 'jreybert/vimagit'
+	" Plug 'dracula/vim', { 'as': 'dracula' }
+	" Plug 'doums/darcula'
+	" Plug 'tomasiser/vim-code-dark'
+	" Plug 'embark-theme/vim', { 'as': 'embark' }
+	" Plug 'leafgarland/typescript-vim'
+	" Plug 'joshdick/onedark.vim'
+	Plug 'EdenEast/nightfox.nvim'
+	" Plug 'morhetz/gruvbox', { 'as': 'gruvbox' }
+
+	Plug 'alvan/vim-closetag'
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'scrooloose/nerdtree'
+	Plug 'phaazon/hop.nvim'
+	" Plug 'easymotion/vim-easymotion'
+	Plug 'tpope/vim-fugitive'
+	Plug 'psliwka/vim-smoothie'
+	Plug 'justinmk/vim-sneak'
+	Plug 'prettier/vim-prettier', {
+	\ 'do': 'yarn install',
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+	Plug 'junegunn/goyo.vim'
+call plug#end()
+
+
+set termguicolors
+syntax on
+
+ " colorscheme darcula
+" colorscheme embark
+" colorscheme codedark
+" let g:airline_theme = 'codedark'
+" colorscheme onedark
+" let g:onedark_terminal_italics = 1
+colorscheme duskfox
+highlight CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#808080
+" let g:gruvbox_contrast_dark = 'hard'
+" colorscheme gruvbox
+
+set number
+set numberwidth=2
+set ignorecase
+set smartcase
+
+set cursorline
+
+" copy and paste
+vmap <C-c> "+yi<ESC>
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+nmap } <C-w><C-w>
+nmap L <C-w><C-w>
+nmap { <C-w>W
+nmap H <C-w>W
+nnoremap <C-j> <C-o>
+nnoremap <C-k> <C-i>
+
+
+" remap J and K to move through tabs
+nnoremap J gT
+nnoremap K gt
+
+" tags
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.tsx'
+let g:goyo_width = '70%'
+command! -nargs=* G :Goyo
+" let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.ts'
+" let g:closetag_filetypes = 'html,xhtml,phtml'
+" let g:closetag_xhtml_filetypes = 'xhtml,jsx,js,tsx'
+" let g:closetag_emptyTags_caseSensitive = 1
+" let g:closetag_regions = {
+"   \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+"   \ 'javascript.jsx': 'jsxRegion',
+"   \ }
+" let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
+
+" command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git' -- ".shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git' -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+
+" write and quit conveniences
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
+
+noremap <silent> <C-Q>          :q<CR>
+vnoremap <silent> <C-Q>         <C-C>:q<CR>
+inoremap <silent> <C-Q>         <C-O>:q<CR>
+
+noremap <silent> <Leader><C-Q>          :qa<CR>
+vnoremap <silent> <Leader><C-Q>         <C-C>:qa<CR>
+inoremap <silent> <Leader><C-Q>         <C-O>:qa<CR>
+
+
+let mapleader ="e"
+
+
+inoremap jk <Esc>
+
+" nerdtree new file: a, / for directory
+let g:NERDTreeShowHidden=1
+map <CR> <CR>
+map <Leader><C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeFind<CR>
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+nnoremap <C-p> :GFiles --cached --others --exclude-standard<CR>
+nnoremap <Leader><C-p> :vsp<CR>:GFiles --cached --others --exclude-standard<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> <Leader>gd <Plug>(coc-references)
+
+nmap <Leader>[ :vertical resize -5<CR>
+nmap <Leader>] :vertical resize +5<CR>
+nmap <Leader><Leader>t :tabnew<Enter>
+nmap <Leader><Leader>v :vsp<Enter>}
+nmap <Leader><Leader>c :sp<Enter>}
+nmap <Leader><Leader>g :Magit<Enter>
+nmap <Leader>q @a
+nmap <Leader>w @s
+
+" ack
+nmap <Leader><Leader>h :<Up><CR>
+nmap <C-f> :Rgx 
+vnoremap <Leader><Leader>a y:Rg <C-r>=fnameescape(@")<CR><CR>
+nnoremap <Leader><Leader>a a() => {}<Esc>
+vnoremap <Leader><Leader>y y/<C-r>=fnameescape(@")<CR><CR>
+
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+let g:ackhighlight = 1
+
+" coc tab autocomplete
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+
+" Custom tab stuff
+"
+let g:lightline = {
+      \ 'colorscheme': 'srcery_drk',
+			\ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ }
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+"end custom tab stuff
+ 
+"mark stuff
+" nnoremap <Leader>a ma
+" nnoremap <Leader>s ms
+" nnoremap <Leader>d md
+" nnoremap <Leader>f mf
+" nnoremap <Leader>g mg
+
+au VimEnter * :unmap <CR>
+autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+
+" hi Visual  guifg=White guibg=#955bff gui=none
+highlight Search guibg='Purple' guifg='NONE'
+
+nnoremap <Leader>r :call CocActionAsync('diagnosticNext')<CR>
+nnoremap <Leader><Leader>r :CocCommand eslint.executeAutofix<CR>
+
+" hop
+lua << EOF
+require'hop'.setup()
+EOF
+nnoremap <Leader><Leader>w :HopWord<CR>
+nnoremap <Leader><Leader>j :HopLine<CR>
+" nnoremap <Leader><Leader>f :HopChar2<CR>
+nnoremap <Leader><Leader>s :HopPattern<CR>
+
+" sneak
+let g:sneak#label = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+
+" coc-prettier 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nmap <Leader>p :Prettier<CR>
+
+function! ParseSpaces(str)
+	let str_array=split(a:str, ' ')
+	return str_array
+endfunction
+
+function! WildcardifyString(str)
+	let args = ParseSpaces(a:str)
+	let search_term=args[0]
+	for term in args[1:]
+		let search_term=search_term . '.*?' . term
+	endfor
+	return search_term
+endfunction
+
+function! WildcardRg(...)
+	let arg1 = a:000[0]
+	let wildcarded_string = WildcardifyString(arg1)
+	execute 'Rg ' . wildcarded_string
+endfunction
+
+command! -nargs=* Rgx :call WildcardRg(<q-args>)
+
+function! RunJestWatchForCurrentFile()
+	let file_name = @%
+	execute 'vsplit'
+	execute 'wincmd w'
+	execute 'ter yarn test --watchAll --runInBand --testPathPattern=' . file_name
+	execute 'wincmd W'
+endfunction
+
+command! Jest :call RunJestWatchForCurrentFile()
+" find better mapping for this
+" nmap <Leader><Leader>j :Jest<CR>
+
+" terminal remap escape
+tnoremap <Leader><Esc> <C-\><C-n>
+
+" Switch to last-active tab
+if !exists('g:Lasttab')
+    let g:Lasttab = 1
+    let g:Lasttab_backup = 1
+endif
+autocmd! TabLeave * let g:Lasttab_backup = g:Lasttab | let g:Lasttab = tabpagenr()
+autocmd! TabClosed * let g:Lasttab = g:Lasttab_backup
+nmap <silent> <Leader>u :exe "tabn " . g:Lasttab<cr>
+
+nnoremap <Leader>f :call CocActionAsync('doHover')<CR>
+
+" Dim inactive windows using 'colorcolumn' setting
+" This tends to slow down redrawing, but is very useful.
+" Based on https://groups.google.com/d/msg/vim_use/IJU-Vk-QLJE/xz4hjPjCRBUJ
+" XXX: this will only work with lines containing text (i.e. not '~')
+" from 
+highlight ColorColumn guibg=#17161D
+if exists('+colorcolumn')
+  function! s:DimInactiveWindows()
+    for i in range(1, tabpagewinnr(tabpagenr(), '$'))
+      let l:range = ""
+      if i != winnr()
+        if &wrap
+         " HACK: when wrapping lines is enabled, we use the maximum number
+         " of columns getting highlighted. This might get calculated by
+         " looking for the longest visible line and using a multiple of
+         " winwidth().
+         let l:width=256 " max
+        else
+         let l:width=winwidth(i)
+        endif
+        let l:range = join(range(1, l:width), ',')
+      endif
+      call setwinvar(i, '&colorcolumn', l:range)
+    endfor
+  endfunction
+  augroup DimInactiveWindows
+    au!
+    au WinEnter * call s:DimInactiveWindows()
+    au WinEnter * set cursorline
+    au WinLeave * set nocursorline
+  augroup END
+endif
+
+au BufRead,BufNewFile *.njk set filetype=html
+au BufRead,BufNewFile *.ejs set filetype=html

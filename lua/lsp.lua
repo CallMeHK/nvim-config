@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver" },
+	ensure_installed = { "sumneko_lua", "tsserver", "elixirls" },
 })
 
 vim.diagnostic.config({ virtual_text = false })

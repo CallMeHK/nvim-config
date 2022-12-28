@@ -7,6 +7,7 @@ require("lsp")
 require("completion")
 require("pairs")
 require("window")
+require("fzf-config")
 
 local o = vim.o
 

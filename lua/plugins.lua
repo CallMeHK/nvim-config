@@ -11,6 +11,9 @@ return require("packer").startup(function(use)
 	use("windwp/nvim-ts-autotag")
 
 	-- Navigation
+
+	use("junegunn/fzf")
+	use("junegunn/fzf.vim")
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
@@ -31,7 +34,7 @@ return require("packer").startup(function(use)
 			require("hop").setup()
 		end,
 	})
-  use("justinmk/vim-sneak")
+	use("justinmk/vim-sneak")
 
 	-- Theme
 	use("EdenEast/nightfox.nvim")
