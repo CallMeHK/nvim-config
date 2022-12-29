@@ -36,10 +36,14 @@ map('v', '<C-c>', '"+yi<ESC>', options)
 
 -- Find and Search
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader><C-p>', builtin.find_files, {})
+vim.keymap.set('n', '<leader><C-p>', ':GFiles --cached --others --exclude-standard<CR>', {})
+vim.keymap.set('n', '<leader><leader><C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
+vim.keymap.set('n', '<leader><C-f>', ':Rgx ', {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('v', '<leader><leader>a', 'y:Rg <C-r>=fnameescape(@")<CR><CR>', {})
+
 
 -- LSP
 vim.keymap.set('n', '<leader>ln', ':NullLsInfo<CR>')

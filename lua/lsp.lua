@@ -1,31 +1,53 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer" },
+	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls" },
 })
 
 vim.diagnostic.config({ virtual_text = false })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig.cssls.setup({
+	capabilities = capabilities,
+})
+
+lspconfig.html.setup({
+	capabilities = capabilities,
+	init_options = {
+		configurationSection = { "html", "css", "javascript" },
+		embeddedLanguages = {
+			css = true,
+			javascript = true,
+		},
+		provideFormatter = true,
+	},
+})
+
+lspconfig.graphql.setup({})
+
+-- Config information: https://sharksforarms.dev/posts/neovim-rust/
 lspconfig.rust_analyzer.setup({
-    -- on_attach=on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
+	-- on_attach=on_attach,
+	settings = {
+		["rust-analyzer"] = {
+			imports = {
+				granularity = {
+					group = "module",
+				},
+				prefix = "self",
+			},
+			cargo = {
+				buildScripts = {
+					enable = true,
+				},
+			},
+			procMacro = {
+				enable = true,
+			},
+		},
+	},
 })
 
 lspconfig.elixirls.setup({
@@ -65,17 +87,16 @@ local formatting = require("null-ls").builtins.formatting
 local diagnostics = require("null-ls").builtins.diagnostics
 local code_actions = require("null-ls").builtins.code_actions
 
+-- MasonInstall shfmt stylua prettier shellcheck credo eslint
+
 require("null-ls").setup({
 	sources = {
 		formatting.shfmt, -- shell script formatting
-		formatting.stylua, -- shell script formatting
-		formatting.prettier, -- markdown formatting
-		-- formatting.surface, -- markdown formatting
-		-- formatting.mix, -- markdown formatting
+		formatting.stylua, -- lua formatting
+		formatting.prettier, -- JS/html formatting
 		diagnostics.shellcheck, -- shell script diagnostics
-		diagnostics.credo, -- shell script diagnostics
-		-- diagnostics.tsc,
-		-- diagnostics.eslint,
+		diagnostics.credo, -- elixir diagnostics
+		diagnostics.eslint, -- js diagnostics
 		code_actions.shellcheck, -- shell script code actions
 	},
 })
