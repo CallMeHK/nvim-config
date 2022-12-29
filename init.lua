@@ -6,6 +6,7 @@ require("treesitter")
 require("lsp")
 require("completion")
 require("pairs")
+require("window")
 
 local o = vim.o
 

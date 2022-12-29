@@ -1,9 +1,22 @@
+
+vim.api.nvim_create_autocmd("WinEnter", {
+    -- pattern = { "*" },
+    command = "set cursorline",
+})
+
+
+vim.api.nvim_create_autocmd("WinLeave", {
+    -- pattern = { "*" },
+    command = "set nocursorline",
+})
+
 vim.cmd([[
-"highlight ColorColumn guibg=#17161D
+"
+highlight ColorColumn guibg=#17161D
 if exists('+colorcolumn')
   function! s:DimInactiveWindows()
     for i in range(1, tabpagewinnr(tabpagenr(), '$'))
-      let l:range = \"\"
+      let l:range = ''
       if i != winnr()
         if &wrap
          let l:width=256 
@@ -18,8 +31,7 @@ if exists('+colorcolumn')
   augroup DimInactiveWindows
     au!
     au WinEnter * call s:DimInactiveWindows()
-    au WinEnter * set cursorline
-    au WinLeave * set nocursorline
   augroup END
-endif"
+endif
+"
 ]])
