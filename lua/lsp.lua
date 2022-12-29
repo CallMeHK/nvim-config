@@ -1,14 +1,36 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver", "elixirls" },
+	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer" },
 })
 
 vim.diagnostic.config({ virtual_text = false })
 
+lspconfig.rust_analyzer.setup({
+    -- on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
 lspconfig.elixirls.setup({
 	on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
+		-- client.server_capabilities.documentFormattingProvider = false
 		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
 	end,
 	settings = {
@@ -48,9 +70,10 @@ require("null-ls").setup({
 		formatting.shfmt, -- shell script formatting
 		formatting.stylua, -- shell script formatting
 		formatting.prettier, -- markdown formatting
-		formatting.surface, -- markdown formatting
-		formatting.mix, -- markdown formatting
+		-- formatting.surface, -- markdown formatting
+		-- formatting.mix, -- markdown formatting
 		diagnostics.shellcheck, -- shell script diagnostics
+		diagnostics.credo, -- shell script diagnostics
 		-- diagnostics.tsc,
 		-- diagnostics.eslint,
 		code_actions.shellcheck, -- shell script code actions

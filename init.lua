@@ -8,6 +8,7 @@ require("completion")
 require("pairs")
 require("window")
 require("fzf-config")
+require("lightline-config")
 
 local o = vim.o
 

@@ -43,7 +43,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- LSP
 vim.keymap.set('n', '<leader>ln', ':NullLsInfo<CR>')
-vim.keymap.set('n', '<leader><leader>r', ':lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>')
+vim.keymap.set('n', '<leader><leader>r', ':lua vim.lsp.buf.format({ timeout_ms = 20000 })<CR>')
 vim.keymap.set('n', '<leader>r', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>R', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
