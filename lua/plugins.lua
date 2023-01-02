@@ -5,13 +5,13 @@ return require("packer").startup(function(use)
 	-- Misc plugins
 	use("junegunn/goyo.vim")
 	use("psliwka/vim-smoothie")
+	use({ "michaelb/sniprun", run = "bash ./install.sh" })
 
 	-- Pairs
 	use("jiangmiao/auto-pairs")
 	use("windwp/nvim-ts-autotag")
 
 	-- Navigation
-
 	use("junegunn/fzf")
 	use("junegunn/fzf.vim")
 	use({

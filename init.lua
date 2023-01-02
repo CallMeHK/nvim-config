@@ -9,6 +9,7 @@ require("pairs")
 require("window")
 require("fzf-config")
 require("lightline-config")
+require("sniprun-config")
 require("misc")
 
 -- lsp stuff

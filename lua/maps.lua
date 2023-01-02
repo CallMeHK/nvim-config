@@ -66,3 +66,6 @@ vim.keymap.set('', 'S', '<Plug>Sneak_S', {remap=true})
 
 -- Terminal
 vim.cmd("tnoremap <Leader><Esc> <C-\\><C-n>")
+
+-- SnipRun
+vim.api.nvim_set_keymap('v', '<leader><leader>f', '<Plug>SnipRun', {})

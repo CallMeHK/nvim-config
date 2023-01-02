@@ -18,6 +18,6 @@ o.shiftwidth = 2
 vim.opt.termguicolors = true
 
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-    pattern = { "*.njk", "*.ejs" },
-    command = "set filetype=html",
+	pattern = { "*.njk", "*.ejs" },
+	command = "set filetype=html",
 })
