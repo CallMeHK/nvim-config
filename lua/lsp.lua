@@ -1,13 +1,22 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls" },
+	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls", "denols" },
 })
 
 vim.diagnostic.config({ virtual_text = false })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- deno setup can clash with tsserver
+-- nvim_lsp.denols.setup {
+--   on_attach = on_attach,
+--   root_dir = nvim_lsp.util.root_pattern("deno.json"),
+--   init_options = {
+--     lint = true,
+--   },
+-- }
 
 lspconfig.cssls.setup({
 	capabilities = capabilities,
@@ -77,6 +86,8 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.tsserver.setup({
+  -- uncomment this if using deno
+	-- root_dir = nvim_lsp.util.root_pattern("package.json"),
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})

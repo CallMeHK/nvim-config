@@ -7,6 +7,7 @@
 -- empty setup using defaults
 -- require("nvim-tree").setup()
 
+
 vim.g.nvim_tree_disable_default_keybindings = 1
 
 local bindings = { -- BEGIN_DEFAULT_MAPPINGS
@@ -91,3 +92,7 @@ require("nvim-tree").setup({
 		},
 	},
 })
+
+local git = require("nvim-tree.git")
+
+-- git.ignore = false
