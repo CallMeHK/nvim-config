@@ -21,3 +21,5 @@ vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
 	pattern = { "*.njk", "*.ejs" },
 	command = "set filetype=html",
 })
+
+vim.cmd("let g:goyo_width = '50%'")

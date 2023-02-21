@@ -6,6 +6,7 @@ return require("packer").startup(function(use)
 	use("junegunn/goyo.vim")
 	use("psliwka/vim-smoothie")
 	use({ "michaelb/sniprun", run = "bash ./install.sh" })
+	use("tpope/vim-fugitive")
 
 	-- Pairs
 	use("jiangmiao/auto-pairs")
@@ -38,6 +39,7 @@ return require("packer").startup(function(use)
 
 	-- Theme
 	use("EdenEast/nightfox.nvim")
+  	use("navarasu/onedark.nvim")
 	use("itchyny/lightline.vim")
 
 	-- Session management

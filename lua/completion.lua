@@ -13,9 +13,9 @@ cmp.setup({
 		["<CR>"] = cmp.mapping(function(fallback)
 			if luasnip.expandable() then
 				luasnip.expand()
-      else
-        fallback()
-      end
+			else
+				fallback()
+			end
 		end, {
 			"i",
 			"s",
@@ -27,7 +27,7 @@ cmp.setup({
 				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
-			-- elseif check_backspace() then
+				-- elseif check_backspace() then
 				-- fallback()
 			else
 				fallback()
@@ -69,6 +69,13 @@ cmp.setup({
 			return vim_item
 		end,
 	},
+	performance = {
+		debounce = 300,
+		-- throttle = 60,
+		-- fetching_timeout = 200,
+	},
 })
 
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/lua/snippets/"})
+vim.o.lazyredraw = false
+
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets/" })

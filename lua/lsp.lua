@@ -1,13 +1,28 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls", "denols" },
+	ensure_installed = {
+    "lua_ls",
+		"tsserver",
+		"elixirls",
+		"rust_analyzer",
+		"html",
+		"graphql",
+		"cssls",
+		"denols",
+		"yamlls",
+		--"eslint", 
+    -- had sudo issues here, had to run manually:
+    -- sudo npm i -g vscode-langservers-extracted
+	},
 })
 
 vim.diagnostic.config({ virtual_text = false })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig.eslint.setup({})
 
 -- deno setup can clash with tsserver
 -- nvim_lsp.denols.setup {
@@ -17,6 +32,18 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --     lint = true,
 --   },
 -- }
+
+lspconfig.yamlls.setup({})
+--  settings = {
+--    yaml = {
+--      schemas = {
+--        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
+--        ["../path/relative/to/file.yml"] = "/.github/workflows/*"
+--        ["/path/from/root/of/project"] = "/.github/workflows/*"
+--      },
+--    },
+--  }
+--}
 
 lspconfig.cssls.setup({
 	capabilities = capabilities,
@@ -78,7 +105,7 @@ lspconfig.elixirls.setup({
 	},
 })
 
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
@@ -86,7 +113,7 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.tsserver.setup({
-  -- uncomment this if using deno
+	-- uncomment this if using deno
 	-- root_dir = nvim_lsp.util.root_pattern("package.json"),
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
@@ -107,7 +134,7 @@ require("null-ls").setup({
 		formatting.prettier, -- JS/html formatting
 		diagnostics.shellcheck, -- shell script diagnostics
 		diagnostics.credo, -- elixir diagnostics
-		diagnostics.eslint, -- js diagnostics
+		--		diagnostics.eslint, -- js diagnostics
 		code_actions.shellcheck, -- shell script code actions
 	},
 })
