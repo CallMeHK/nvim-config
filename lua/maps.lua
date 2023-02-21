@@ -87,4 +87,7 @@ vim.keymap.set("", "S", "<Plug>Sneak_S", { remap = true })
 vim.cmd("tnoremap <Leader><Esc> <C-\\><C-n>")
 
 -- SnipRun
-vim.api.nvim_set_keymap("v", "<leader><leader>f", "<Plug>SnipRun", {})
+vim.api.nvim_set_keymap('v', '<leader><leader>f', '<Plug>SnipRun', {})
+
+-- Transparency
+vim.keymap.set('n', '<leader><leader>-', '<cmd>TransparentToggle<CR>', { noremap = true, silent = true })

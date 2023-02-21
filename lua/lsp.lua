@@ -1,23 +1,14 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = {
-    "lua_ls",
-		"tsserver",
-		"elixirls",
-		"rust_analyzer",
-		"html",
-		"graphql",
-		"cssls",
-		"denols",
-		"yamlls",
-		--"eslint", 
-    -- had sudo issues here, had to run manually:
-    -- sudo npm i -g vscode-langservers-extracted
-	},
+  ensure_installed = { "lua_ls", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls", "denols" }, -- hls
 })
 
 vim.diagnostic.config({ virtual_text = false })
+
+-- lspconfig.hls.setup{
+  -- filetypes = { 'haskell', 'lhaskell', 'cabal' },
+-- }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

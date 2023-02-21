@@ -39,8 +39,9 @@ return require("packer").startup(function(use)
 
 	-- Theme
 	use("EdenEast/nightfox.nvim")
-  	use("navarasu/onedark.nvim")
+  use("navarasu/onedark.nvim")
 	use("itchyny/lightline.vim")
+  use("xiyaowong/nvim-transparent")
 
 	-- Session management
 	use({
