@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls", "denols" }, -- hls
+  ensure_installed = { "lua_ls", "tsserver", "elixirls", "rust_analyzer", "html", "graphql", "cssls" }, -- hls
 })
 
 vim.diagnostic.config({ virtual_text = false })

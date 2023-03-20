@@ -21,7 +21,6 @@ vim.cmd("colorscheme carbonfox")
 vim.g.lightline = { colorscheme = 'carbonfox' }
 
 transparent.setup({
-  enable = true, -- boolean: enable transparent
   extra_groups = { -- table/string: additional groups that should be cleared
     -- In particular, when you set it to 'all', that means all available groups
 
@@ -33,7 +32,6 @@ transparent.setup({
     "BufferLineSeparator",
     "BufferLineIndicatorSelected",
   },
-  exclude = {}, -- table: groups you don't want to clear
 })
 
 -- vim.cmd("colorscheme gruvbox")
